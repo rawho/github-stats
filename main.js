@@ -6,7 +6,7 @@ async function getData() {
     
     let res = await fetch(`https://api.github.com/users/${username}`)
     let json = await res.json()
-    console.log(json)
+    
 
     
     let nameElement = document.getElementById("name")
@@ -36,65 +36,28 @@ async function getData() {
         }
     })
     repos_list.sort(compare)
+    repos_list = repos_list.slice(0, 4)
 
-    let repo_title_1 = document.getElementById("repo_title_1")
-    let repo_title_2 = document.getElementById("repo_title_2")
-    let repo_title_3 = document.getElementById("repo_title_3")
-    let repo_title_4 = document.getElementById("repo_title_4")
+    let repoContainer = document.getElementById("repo-cont")
+    repoContainer.innerHTML = ''
+    for( let i=0; i<repos_list.length; i++){
+
+        repoContainer.innerHTML += `
+        <a id="link1" href="">
+            <div class="repo" id="1">
+                <h1 id="repo_title_1"><em class="fa fa-file-code-o"></em>&nbsp; ${repos_list[i].name}</h1>
+                <p id="repo_desc_1">${repos_list[i].description}</p>
+                <div class="stats">
+                    <em class="fa fa-circle"></em> <span id="lang1">${repos_list[i].language}</span> &nbsp;&nbsp;
+                    <em class="fa fa-star-o"></em> <span id="stars1">${repos_list[i].stargazers_count}</span> &nbsp;&nbsp;
+                    <em class="fa fa-code-fork"></em> <span id="fork1">${repos_list[i].forks_count}</span> 
+                </div>
+            </div>
+        </a>
+        `
+    }
+
     
-    let repo_desc_1 = document.getElementById("repo_desc_1")
-    let repo_desc_2 = document.getElementById("repo_desc_2")
-    let repo_desc_3 = document.getElementById("repo_desc_3")
-    let repo_desc_4 = document.getElementById("repo_desc_4")
-    
-    let lang1 = document.getElementById("lang1")
-    let lang2 = document.getElementById("lang2")
-    let lang3 = document.getElementById("lang3")
-    let lang4 = document.getElementById("lang4")
-
-    let stars1 = document.getElementById("stars1")
-    let stars2 = document.getElementById("stars2")
-    let stars3 = document.getElementById("stars3")
-    let stars4 = document.getElementById("stars4")
-
-    let fork1 = document.getElementById("fork1")
-    let fork2 = document.getElementById("fork2")
-    let fork3 = document.getElementById("fork3")
-    let fork4 = document.getElementById("fork4")
-
-
-    repo_title_1.innerHTML = repos_list[0].name
-    repo_title_2.innerHTML = repos_list[1].name
-    repo_title_3.innerHTML = repos_list[2].name
-    repo_title_4.innerHTML = repos_list[3].name
-
-
-    repo_desc_1.innerHTML = repos_list[0].description
-    repo_desc_2.innerHTML = repos_list[1].description
-    repo_desc_3.innerHTML = repos_list[2].description
-    repo_desc_4.innerHTML = repos_list[3].description
-
-    lang1.innerHTML = repos_list[0].language
-    lang2.innerHTML = repos_list[1].language
-    lang3.innerHTML = repos_list[2].language
-    lang4.innerHTML = repos_list[3].language
-
-    stars1.innerHTML = repos_list[0].stargazers_count
-    stars2.innerHTML = repos_list[1].stargazers_count
-    stars3.innerHTML = repos_list[2].stargazers_count
-    stars4.innerHTML = repos_list[3].stargazers_count
-
-    fork1.innerHTML = repos_list[0].forks_count
-    fork2.innerHTML = repos_list[1].forks_count
-    fork3.innerHTML = repos_list[2].forks_count
-    fork4.innerHTML = repos_list[3].forks_count
-
-    document.getElementById("link1").href = repos_list[0].html_url
-    document.getElementById("link2").href = repos_list[1].html_url
-    document.getElementById("link3").href = repos_list[2].html_url
-    document.getElementById("link4").href = repos_list[3].html_url
-
-
 
 
     nameElement.innerHTML = `${json.name} (@${json.login})`
@@ -125,7 +88,9 @@ async function getData() {
 }
 
 document.getElementById("get-stats").addEventListener("click", e => {
-    getData()
+    getData().catch(err => {
+        console.log(err)
+    })
 })
 
 function compare(a, b) {
