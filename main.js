@@ -42,7 +42,7 @@ async function getData() {
         for( let i=0; i<repos_list.length; i++){
 
             repoContainer.innerHTML += `
-            <a id="link1" href="">
+            <a id="link1" href="${repos_list[i].html_url}">
                 <div class="repo" id="1">
                     <h1 id="repo_title_1"><em class="fa fa-file-code-o"></em>&nbsp; ${repos_list[i].name}</h1>
                     <p id="repo_desc_1">${repos_list[i].description}</p>
