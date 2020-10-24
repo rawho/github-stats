@@ -43,10 +43,13 @@ async function getData() {
             if(a.target.innerText == "More Repos"){
                 showmore(repos_list)
                 a.target.innerText = "Less Repos"
+                addToFavourite()
+                
             }
             else if(a.target.innerText == "Less Repos"){
                 showless(repos_list_short)
                 a.target.innerText = "More Repos"
+                addToFavourite()
             }
         })
         
@@ -80,6 +83,7 @@ async function getData() {
         public_gists_count.innerText = json.public_gists
 
 
+        addToFavourite()
 
         
 
@@ -93,7 +97,7 @@ async function getData() {
             
           })
     }
-
+    
     
     
     
@@ -125,9 +129,13 @@ function showless(repos_list_short){
         for( let i=0; i<repos_list_short.length; i++){
 
             repoContainer.innerHTML += `
-            <a id="link1" href="${repos_list_short[i].html_url}">
+            
                 <div class="repo" id="1">
-                    <h1 id="repo_title_1"><em class="fa fa-file-code-o"></em>&nbsp; ${repos_list_short[i].name}</h1>
+                    <a id="link" href="${repos_list_short[i].html_url}">
+                        <h1 id="repo_title_1"><em class="fa fa-file-code-o"></em>&nbsp; ${repos_list_short[i].name} 
+                    </a>    
+                        <div class="favorite" ><em class="fav fa fa-bookmark-o"></em> </div></h1>
+                    
                     <p id="repo_desc_1">${repos_list_short[i].description}</p>
                     <div class="stats">
                         <em class="fa fa-circle"></em> <span id="lang1">${repos_list_short[i].language}</span> &nbsp;&nbsp;
@@ -135,7 +143,7 @@ function showless(repos_list_short){
                         <em class="fa fa-code-fork"></em> <span id="fork1">${repos_list_short[i].forks_count}</span> 
                     </div>
                 </div>
-            </a>
+            
             `
         }
 }
@@ -146,17 +154,19 @@ function showmore(repos_list){
     for( let i=0; i<repos_list.length; i++){
 
         repoContainer.innerHTML += `
-        <a id="link1" href="${repos_list[i].html_url}">
-            <div class="repo" id="1">
-                <h1 id="repo_title_1"><em class="fa fa-file-code-o"></em>&nbsp; ${repos_list[i].name}</h1>
-                <p id="repo_desc_1">${repos_list[i].description}</p>
-                <div class="stats">
+        <div class="repo" id="1">
+            <a id="link" href="${repos_list[i].html_url}">
+                <h1 id="repo_title_1"><em class="fa fa-file-code-o"></em>&nbsp; ${repos_list[i].name} 
+            </a>    
+                <div class="favorite" ><em class="fav fa fa-bookmark-o"></em> </div></h1>
+            
+            <p id="repo_desc_1">${repos_list[i].description}</p>
+            <div class="stats">
                 <em class="fa fa-circle"></em> <span id="lang1">${repos_list[i].language}</span> &nbsp;&nbsp;
                 <em class="fa fa-star-o"></em> <span id="stars1">${repos_list[i].stargazers_count}</span> &nbsp;&nbsp;
-                    <em class="fa fa-code-fork"></em> <span id="fork1">${repos_list[i].forks_count}</span> 
-                </div>
+                <em class="fa fa-code-fork"></em> <span id="fork1">${repos_list[i].forks_count}</span> 
             </div>
-        </a>
+        </div>
         `
     }
 }
