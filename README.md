@@ -1,8 +1,9 @@
-<p align="center">
+<div align="center">
  <img width="100%" src="img/og-githubstats.png" align="center" alt="GitHub Readme Stats" />
  <h2 align="center" style="color:#ffc107;">GitHub Stats</h2>
  <p align="center">Get the details of the developers at your fingertips</p>
-</p>
+    <a href="">Live Demo</a>
+</div>
 
 # Features
 - You can search for any user in the github and get their details
