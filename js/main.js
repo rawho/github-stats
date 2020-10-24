@@ -108,6 +108,7 @@ document.getElementById("get-stats").addEventListener("click", async e => {
         console.log(err)
     })
     let data = await getData()
+    document.getElementById("show-more").innerText = "More Repos"
 })
 
 function compare(a, b) {
