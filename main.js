@@ -35,28 +35,23 @@ async function getData() {
             }
         })
         repos_list.sort(compare)
-        repos_list = repos_list.slice(0, 4)
+        let repos_list_short = repos_list.slice(0, 4)
 
-        let repoContainer = document.getElementById("repo-cont")
-        repoContainer.innerHTML = ''
-        for( let i=0; i<repos_list.length; i++){
+        showless(repos_list_short)
 
-            repoContainer.innerHTML += `
-            <a id="link1" href="${repos_list[i].html_url}">
-                <div class="repo" id="1">
-                    <h1 id="repo_title_1"><em class="fa fa-file-code-o"></em>&nbsp; ${repos_list[i].name}</h1>
-                    <p id="repo_desc_1">${repos_list[i].description}</p>
-                    <div class="stats">
-                        <em class="fa fa-circle"></em> <span id="lang1">${repos_list[i].language}</span> &nbsp;&nbsp;
-                        <em class="fa fa-star-o"></em> <span id="stars1">${repos_list[i].stargazers_count}</span> &nbsp;&nbsp;
-                        <em class="fa fa-code-fork"></em> <span id="fork1">${repos_list[i].forks_count}</span> 
-                    </div>
-                </div>
-            </a>
-            `
-        }
-
+        document.getElementById("show-more").addEventListener("click", a => {
+            if(a.target.innerText == "More Repos"){
+                showmore(repos_list)
+                a.target.innerText = "Less Repos"
+            }
+            else if(a.target.innerText == "Less Repos"){
+                showless(repos_list_short)
+                a.target.innerText = "More Repos"
+            }
+        })
         
+
+       
 
 
         nameElement.innerHTML = `${json.name} (@${json.login})`
@@ -84,6 +79,10 @@ async function getData() {
         public_repos_count.innerText = repos_list.length
         public_gists_count.innerText = json.public_gists
 
+
+
+        
+
     }
     else if(res.status === 404){
         Swal.fire({
@@ -94,14 +93,17 @@ async function getData() {
             
           })
     }
+
+    
     
     
 }
 
-document.getElementById("get-stats").addEventListener("click", e => {
+document.getElementById("get-stats").addEventListener("click", async e => {
     getData().catch(err => {
         console.log(err)
     })
+    let data = await getData()
 })
 
 function compare(a, b) {
@@ -117,4 +119,48 @@ function compare(a, b) {
     return comparison;
   }
 
-  getData()
+function showless(repos_list_short){
+    let repoContainer = document.getElementById("repo-cont")
+        repoContainer.innerHTML = ''
+        for( let i=0; i<repos_list_short.length; i++){
+
+            repoContainer.innerHTML += `
+            <a id="link1" href="${repos_list_short[i].html_url}">
+                <div class="repo" id="1">
+                    <h1 id="repo_title_1"><em class="fa fa-file-code-o"></em>&nbsp; ${repos_list_short[i].name}</h1>
+                    <p id="repo_desc_1">${repos_list_short[i].description}</p>
+                    <div class="stats">
+                        <em class="fa fa-circle"></em> <span id="lang1">${repos_list_short[i].language}</span> &nbsp;&nbsp;
+                        <em class="fa fa-star-o"></em> <span id="stars1">${repos_list_short[i].stargazers_count}</span> &nbsp;&nbsp;
+                        <em class="fa fa-code-fork"></em> <span id="fork1">${repos_list_short[i].forks_count}</span> 
+                    </div>
+                </div>
+            </a>
+            `
+        }
+}
+
+function showmore(repos_list){
+    let repoContainer = document.getElementById("repo-cont")
+    repoContainer.innerHTML = ''
+    for( let i=0; i<repos_list.length; i++){
+
+        repoContainer.innerHTML += `
+        <a id="link1" href="${repos_list[i].html_url}">
+            <div class="repo" id="1">
+                <h1 id="repo_title_1"><em class="fa fa-file-code-o"></em>&nbsp; ${repos_list[i].name}</h1>
+                <p id="repo_desc_1">${repos_list[i].description}</p>
+                <div class="stats">
+                <em class="fa fa-circle"></em> <span id="lang1">${repos_list[i].language}</span> &nbsp;&nbsp;
+                <em class="fa fa-star-o"></em> <span id="stars1">${repos_list[i].stargazers_count}</span> &nbsp;&nbsp;
+                    <em class="fa fa-code-fork"></em> <span id="fork1">${repos_list[i].forks_count}</span> 
+                </div>
+            </div>
+        </a>
+        `
+    }
+}
+
+
+
+getData()
