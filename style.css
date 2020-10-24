@@ -82,8 +82,14 @@ body{
 /* Sidebar */
 .sidebar{
     /* background-color: red; */
-    min-height: 88vh;
     border-right: 1px solid #393939;
+   
+}
+
+.container .sidebar{
+    max-height: 90vh;
+    position: sticky;
+    top: 10px;
 }
 
 .sidebar .dp{
@@ -280,6 +286,11 @@ body{
     .sidebar{
         grid-column: 1/3;
     }
+    .container .sidebar{
+        max-height: fit-content;
+        position: relative;
+    }
+    
     .main{
         grid-column: 1/3;
     }
