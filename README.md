@@ -2,7 +2,11 @@
  <img width="100%" src="img/og-githubstats.png" align="center" alt="GitHub Readme Stats" />
  <h2 align="center" style="color:#ffc107;">GitHub Stats</h2>
  <p align="center">Get the details of the developers at your fingertips</p>
-    <a href="https://rahulmanoj.xyz/github-stats">Live Demo</a>
+ <a style="text-align: center;" href="https://rahulmanoj.xyz/github-stats">Live Demo of old version</a>
+ <br><br>
+ <p align="center">This Project is upgraded to django: <a href="https://github.com/rawho/githubstats">new repo</a></p>
+ <a style="text-align: center;" href="https://githubstats.xyz">Live Demo of updated version</a>
+    
 </div>
 
 # Features
